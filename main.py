@@ -1,0 +1,3 @@
+import DatabaseFunctions
+
+DatabaseFunctions.AddRecordToTable()
