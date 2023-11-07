@@ -14,7 +14,9 @@ def ChangeColorToWhite(text):
 
 #główna funkcja menu
 def menu():
-    object = Product("",0) #tworze przykładowy obiekt na rzecz którego bedę wywoływać metody (funkcje w klasie)
+    object = Product("",0) #tworze przykładowy obiekt na rzecz którego bedę wywoływać metody (funkcje w klasie), "" oznacza ze nazwa domyslnie jest pusta
+    #0 oznacza ze cena domyslnie po utworzeniu to 0, przewiń sobie do definicji placy Product i tam w pierwszych liniach masz _init_ coś tam
+    #za pomocą tego konstruktora możesz sobie tworzyć obiekt z wartościami podanymi w nawiasie
     
     zm = 1 #zmienna obslugujaca przeskakiwanie
     while(1): #petla nieskonczona, warunek zawsze jest spelniony, dlatego za kazym razem jak wcisniesz coś to program bedzie aktualizowal sie
@@ -178,8 +180,11 @@ class Product:
                     #wywolujesz i wprowadzasz nowa nazwe ktarą wpisalaś na klawiaturze
                     Connection.conn.commit()#wysylanie do bazy danych zapytania
                     print("\nZaktualizowano rekordy!")#jak sie uda to ci mowi ze jest git a jak nie to ze blad, tak samo jest z aktualizacja ceny
+                    ChangeColorToPurple("\nWYJSCIE")
+                    msvcrt.getch()
+                    menu()
                 except Exception as e:
-                    print(f"\nBlad podczas aktualizowania rekordow: {e}")
+                    print(f"\nBlad podczas aktualizowania rekordow {e}")
                 
             if (zn == b'\r') and (choice == 2):
                 new_price = input("\nWprowadz nowa cene produktu: ")
@@ -188,12 +193,11 @@ class Product:
                     cursor.execute(f"UPDATE Products SET price = '{new_price}' WHERE name LIKE '{self.name}'")
                     Connection.conn.commit()
                     print("\nZaktualizowano rekordy!")
+                    ChangeColorToPurple("\nWYJSCIE")
+                    msvcrt.getch()
+                    menu()
                 except Exception as e:
-                    print(f"\nBlad podczas aktualizowania rekordow: {e}")
-
-            ChangeColorToPurple("\nWYJSCIE")
-            msvcrt.getch()
-            menu()
+                    print(f"\nBlad podczas aktualizowania rekordow {e}")
         
 #tu sie konczą funkcje ktore bedziemy wywolywac na rzecz jednego obiektu czyli dodawanie, ususwnaie, 
 # modyfikacja itp bo teraz bedziemy wyswietlac wszytskie produkty, albo jakas ich czesc w każdym razie nie jakis jeden konkretny
@@ -210,9 +214,9 @@ def sort_products():
         else:
             ChangeColorToWhite("\nNAZWA (A-Z)")
         if choice == 2:
-            ChangeColorToPurple("\nNAZWA (Z-A)")
+            ChangeColorToPurple("NAZWA (Z-A)")
         else:
-            ChangeColorToWhite("\nNAZWA (Z-A)")
+            ChangeColorToWhite("NAZWA (Z-A)")
         if choice == 3:
             ChangeColorToPurple("CENA ROSNACO")
         else:
