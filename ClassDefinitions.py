@@ -240,7 +240,7 @@ def sort_products():
             #jeżeli wybór to 1 i nacisnieto enter to przypisuje zapytanie i leci z nim do funkcja która wyswietli jego wyniki (NIZEJ)
             #to jest polecenie bezposrednio do wrzucenia do bazy danych
             #tutaj zamiast wyswietlac wszytsko robie ppunkcje ktora wyswietla wszytskie produkty które wybierze zapytanie
-            #wszedzie to wyglada tak samo tylko rożnią sie zapytania
+            #wszedzie to wyglada tak samo tylko rożnią sie zapytaniaa
             query = 'SELECT * FROM Products ORDER BY name ASC'
             display_all_product_by_query(query)
             
