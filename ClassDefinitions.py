@@ -90,10 +90,7 @@ class Product:
         menu()
 
 
-        #tu jest troche wiecej zabawy bo jak wchodzisz do trybu aktualizowania to mozesz wybrac co chcesz zaktualizowac czyli masz tak jakby drugie menu
-        #ktore dziala tak samo tylko zamiast zm jest choice zeby zmienne sie nie dublowały
     def update_product(self, menu):
-        choice = 1
         os.system('cls')
         print("------------------------------------------------------------------------------------")
         print("|                               MODYFIKACJA CENY PRODUKTU                           |")
@@ -126,6 +123,7 @@ class Product:
         
 #tu sie konczą funkcje ktore bedziemy wywolywac na rzecz jednego obiektu czyli dodawanie, ususwnaie, 
 # modyfikacja itp bo teraz bedziemy wyswietlac wszytskie produkty, albo jakas ich czesc w każdym razie nie jakis jeden konkretny
+#dlatego nie bedzie przy wywolywaniu w Pliku Menu.py tego object. przed funkcja
 def sort_products(menu):
     choice = 1
     while(1):
