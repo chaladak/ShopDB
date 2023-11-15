@@ -64,10 +64,10 @@ def menu():
         if (znak == b'\r') and (zm == 1): #jak jest enter i zmiana to 1 czyli wybrano 1 pozycje to idzie do classdefinitions do funkcji add_product
             object.add_product(menu)
         
-        if (znak == b'\r') and (zm == 2):
+        if (znak == b'\r') and (zm == 2):#tu tak samo i niżej tez
             object.update_product(menu)
 
-        if (znak == b'\r') and (zm == 3): #tu tak samo i niżej tez
+        if (znak == b'\r') and (zm == 3): 
             object.delete_product(menu)
         
         if (znak == b'\r') and (zm == 4):
@@ -77,7 +77,7 @@ def menu():
             sort_products(menu)
         
         if (znak == b'\r') and (zm == 6): 
-            os.system("cls")
+            os.system("cls") #czyszcze se ekran
             close_connection() #zamykam polaczenie z baza
             exit(1) #koniec programu
 
