@@ -1,11 +1,13 @@
-import os                            #do czyszczenia ekranu
+import os                           #do czyszczenia ekranu
 import msvcrt                       #do pobierania znaku z klawiatury
-import ClassDefinitions
+from ClassDefinitions import Product, ChangeColorToPurple, ChangeColorToWhite, filter_products, sort_products, close_connection 
+#tu sobie importuje pojedyncze funkcje pokolei bo jak bym se zrobiła poprostu "import calyPlik" to musialabym przed kazda funkcja dodawac
+#nazwaPliku.nazwafunkcji(), to byloby troche niewygodne
 
-#główna funkcja menu
+#główna funkcja menu, z niej beda sie odpalac wszytskie inne
 def menu():
-    object = ClassDefinitions.Product("",0) 
-    #to classDefinitions. oznacza ze ciągne ten Product z innego pliku Class definitions, 
+    object = Product("",0) 
+    #to  oznacza ze ciągne ten Product z innego pliku Class definitions, 
     #tworze przykładowy obiekt na rzecz którego bedę wywoływać metody (funkcje w klasie), "" oznacza ze nazwa domyslnie jest pusta
     #0 oznacza ze cena domyslnie po utworzeniu to 0, przewiń sobie do definicji placy Product i tam w pierwszych liniach masz _init_ coś tam
     #za pomocą tego konstruktora możesz sobie tworzyć obiekt z wartościami podanymi w nawiasie
@@ -17,30 +19,30 @@ def menu():
         print("------------------------------------------------------------------------------------")
         print("|                               SYSTEM OBSLUGI MAGAZYNU                            |")
         print("------------------------------------------------------------------------------------")
-        if zm == 1: #to ClassDefinitions.costam oznacza ze w tym pliku nie ma tej funkcji ale ona jest w pliku classdefinitions, tak to bylaby nierozpoznana
-            ClassDefinitions.ChangeColorToPurple("\nDODAJ PRODUKT")#jesli zmiana jest rowna 1 czyli wybrano pozycje 1 to zmien kolor 
+        if zm == 1: #to costam oznacza ze w tym pliku nie ma tej funkcji ale ona jest w pliku classdefinitions, tak to bylaby nierozpoznana
+            ChangeColorToPurple("\nDODAJ PRODUKT")#jesli zmiana jest rowna 1 czyli wybrano pozycje 1 to zmien kolor 
         else:
-            ClassDefinitions.ChangeColorToWhite("\nDODAJ PRODUKT")#jak nie to wypisz ten tekst normalnie w kolorze bialym
+            ChangeColorToWhite("\nDODAJ PRODUKT")#jak nie to wypisz ten tekst normalnie w kolorze bialym
         if zm==2:
-            ClassDefinitions.ChangeColorToPurple("MODYFIKUJ PRODUKT")
+            ChangeColorToPurple("MODYFIKUJ PRODUKT")
         else:
-            ClassDefinitions.ChangeColorToWhite("MODYFIKUJ PRODUKT")
+            ChangeColorToWhite("MODYFIKUJ PRODUKT")
         if zm==3:
-            ClassDefinitions.ChangeColorToPurple("USUN PRODUKT")
+            ChangeColorToPurple("USUN PRODUKT")
         else:
-            ClassDefinitions.ChangeColorToWhite("USUN PRODUKT")
+            ChangeColorToWhite("USUN PRODUKT")
         if zm==4:
-            ClassDefinitions.ChangeColorToPurple("FILTROWANIE PRODUKTOW")
+            ChangeColorToPurple("FILTROWANIE PRODUKTOW")
         else:
-            ClassDefinitions.ChangeColorToWhite("FILTROWANIE PRODUKTOW")
+            ChangeColorToWhite("FILTROWANIE PRODUKTOW")
         if zm==5:
-            ClassDefinitions.ChangeColorToPurple("WYSWIETL WSZYTSKIE PRODUKTY")
+            ChangeColorToPurple("WYSWIETL WSZYTSKIE PRODUKTY")
         else:
-            ClassDefinitions.ChangeColorToWhite("WYSWIETL WSZYTSKIE PRODUKTY")
+            ChangeColorToWhite("WYSWIETL WSZYTSKIE PRODUKTY")
         if zm==6:
-            ClassDefinitions.ChangeColorToPurple("WYJSCIE")
+            ChangeColorToPurple("WYJSCIE")
         else:
-            ClassDefinitions.ChangeColorToWhite("WYJSCIE")
+            ChangeColorToWhite("WYJSCIE")
 
         znak = msvcrt.getch() #ta sunkcja zwraca kod znaku, ktory jest wcisniety
         
@@ -52,28 +54,32 @@ def menu():
             zm = 1
 
         
-        if (znak == b'\r') and (zm == 6): #jesli znak to enter (b'\r' - taki ma kod) i zmiana jest 6 to wylazimy z programu
-            os.system("cls" if os.name == "nt" else "clear")
-            ClassDefinitions.close_connection() #zamykam polaczenie z baza
-            exit(1) #koniec programu
+        
         #wszedzie w nawiasie dodaje menu bo w tych funkcjach bede wracac spowrotem do menu
         #te funkcje są w innym pliku i one nie widza tej funkcji menu ale jak podasz im w nawiasie to juz bedą widzieć
         #tutaj nie moglam sobie zrobić import bo importowałam do tego pliku ClassDefinitions a jesli chce użyc tego menu w class definitions
         #to musiałabym zaimportowac do niego menu a tak nie moża
         #python nie pozwala zeby jeedn plik importował sie do drugiego, a drugi do pierwszego => tak unikamy importowania cyklicznego
+        #jesli znak to enter (b'\r' - taki ma kod) i zmiana jest 1 to wykonujemy dodawanie produktu
         if (znak == b'\r') and (zm == 1): #jak jest enter i zmiana to 1 czyli wybrano 1 pozycje to idzie do classdefinitions do funkcji add_product
             object.add_product(menu)
+        
+        if (znak == b'\r') and (zm == 2):#tu tak samo i niżej tez
+            object.update_product(menu)
 
-        if (znak == b'\r') and (zm == 3): #tu tak samo i niżej tez
+        if (znak == b'\r') and (zm == 3): 
             object.delete_product(menu)
         
         if (znak == b'\r') and (zm == 4):
-            ClassDefinitions.filter_products(menu)#to takie info ze ciagne sobie funcje filter z pliku ClassDefinitions
-        
-        if (znak == b'\r') and (zm == 2):
-            object.update_product(menu)
+            filter_products(menu)
         
         if (znak == b'\r') and (zm == 5):
-            ClassDefinitions.sort_products(menu)#tu sobie ciagne funkcje tez z innego pliku
+            sort_products(menu)
+        
+        if (znak == b'\r') and (zm == 6): 
+            os.system("cls") #czyszcze se ekran
+            close_connection() #zamykam polaczenie z baza
+            exit(1) #koniec programu
+
 
 menu() #tu sie wykonuje caly kod programu bo odpala sie funkcja menu, najwazniejsze miejsce
