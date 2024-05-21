@@ -17,4 +17,4 @@ jobs:
         run: |
           echo "Using secret in a script"
           MY_SECRET=${{ secrets.MY_SECRET }}
-          echo "Secret has been used in the script"
+          echo "Secret value is: $MY_SECRET"
