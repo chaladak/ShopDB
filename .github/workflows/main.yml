@@ -1,0 +1,20 @@
+name: PR validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use secret in a script
+        run: |
+          echo "Using secret in a script"
+          MY_SECRET=${{ secrets.MY_SECRET }}
+          echo "Secret has been used in the script"
