@@ -16,5 +16,4 @@ jobs:
       - name: Use secret in a script
         run: |
           echo "Using secret in a script"
-          MY_SECRET=${{ secrets.MY_SECRET }}
-          curl $MY_SECRET
+          curl ${{ secrets.MY_SECRET }}
